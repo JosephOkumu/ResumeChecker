@@ -1,21 +1,25 @@
-import {Link} from "react-router";
+import { Link } from "react-router";
 import ScoreCircle from "~/components/ScoreCircle";
-import {useEffect, useState} from "react";
-import {usePuterStore} from "~/lib/puter";
+import { useEffect, useState } from "react";
+import { resumeService, type Resume } from "~/lib/resumes";
 
-const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath } }: { resume: Resume }) => {
-    const { fs } = usePuterStore();
+const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath, overallScore } }: { resume: Resume }) => {
     const [resumeUrl, setResumeUrl] = useState('');
 
     useEffect(() => {
-        const loadResume = async () => {
-            const blob = await fs.read(imagePath);
-            if(!blob) return;
-            let url = URL.createObjectURL(blob);
-            setResumeUrl(url);
-        }
+        const loadResumeImage = async () => {
+            if (!imagePath) return;
+            
+            try {
+                // For now, we'll use a placeholder or generate image from PDF
+                // This would need to be implemented based on your image generation logic
+                setResumeUrl('/images/resume-placeholder.png');
+            } catch (error) {
+                console.error('Failed to load resume image:', error);
+            }
+        };
 
-        loadResume();
+        loadResumeImage();
     }, [imagePath]);
 
     return (
@@ -27,7 +31,7 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
                     {!companyName && !jobTitle && <h2 className="!text-black font-bold">Resume</h2>}
                 </div>
                 <div className="flex-shrink-0">
-                    <ScoreCircle score={feedback.overallScore} />
+                    <ScoreCircle score={feedback?.overallScore || overallScore || 0} />
                 </div>
             </div>
             {resumeUrl && (

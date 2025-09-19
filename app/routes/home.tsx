@@ -1,11 +1,11 @@
-import type { Route } from "./+types/home";
 import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
-import {usePuterStore} from "~/lib/puter";
-import {Link, useNavigate} from "react-router";
-import {useEffect, useState} from "react";
+import { useAuthStore } from "~/lib/auth";
+import { resumeService, type Resume } from "~/lib/resumes";
+import { Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
-export function meta({}: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "Resumind" },
     { name: "description", content: "Smart feedback for your dream job!" },
@@ -13,31 +13,34 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const { auth, kv } = usePuterStore();
+  const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
 
   useEffect(() => {
-    if(!auth.isAuthenticated) navigate('/auth?next=/');
-  }, [auth.isAuthenticated])
+    if (!isAuthenticated) {
+      navigate('/auth?next=/');
+    }
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const loadResumes = async () => {
+      if (!isAuthenticated) return;
+      
       setLoadingResumes(true);
+      try {
+        const fetchedResumes = await resumeService.getResumes();
+        setResumes(fetchedResumes);
+      } catch (error) {
+        console.error('Failed to load resumes:', error);
+      } finally {
+        setLoadingResumes(false);
+      }
+    };
 
-      const resumes = (await kv.list('resume:*', true)) as KVItem[];
-
-      const parsedResumes = resumes?.map((resume) => (
-          JSON.parse(resume.value) as Resume
-      ))
-
-      setResumes(parsedResumes || []);
-      setLoadingResumes(false);
-    }
-
-    loadResumes()
-  }, []);
+    loadResumes();
+  }, [isAuthenticated]);
 
   return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
     <Navbar />

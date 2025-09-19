@@ -1,6 +1,7 @@
-import {usePuterStore} from "~/lib/puter";
-import {useEffect} from "react";
-import {useLocation, useNavigate} from "react-router";
+import { useAuthStore } from "~/lib/auth";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import GoogleAuthButton from "~/components/GoogleAuthButton";
 
 export const meta = () => ([
     { title: 'Resumind | Auth' },
@@ -8,14 +9,32 @@ export const meta = () => ([
 ])
 
 const Auth = () => {
-    const { isLoading, auth } = usePuterStore();
+    const { isAuthenticated, isLoading, user, signOut, error, clearError } = useAuthStore();
     const location = useLocation();
-    const next = location.search.split('next=')[1];
+    const next = location.search.split('next=')[1] || '/';
     const navigate = useNavigate();
+    const [authError, setAuthError] = useState<string | null>(null);
 
     useEffect(() => {
-        if(auth.isAuthenticated) navigate(next);
-    }, [auth.isAuthenticated, next])
+        if (isAuthenticated) {
+            navigate(next);
+        }
+    }, [isAuthenticated, next, navigate]);
+
+    useEffect(() => {
+        if (error) {
+            setAuthError(error);
+            clearError();
+        }
+    }, [error, clearError]);
+
+    const handleAuthSuccess = () => {
+        navigate(next);
+    };
+
+    const handleAuthError = (errorMessage: string) => {
+        setAuthError(errorMessage);
+    };
 
     return (
         <main className="bg-[url('/images/bg-auth.svg')] bg-cover min-h-screen flex items-center justify-center">
@@ -25,21 +44,35 @@ const Auth = () => {
                         <h1>Welcome</h1>
                         <h2>Log In to Continue Your Job Journey</h2>
                     </div>
+                    
+                    {authError && (
+                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                            {authError}
+                        </div>
+                    )}
+
                     <div>
                         {isLoading ? (
-                            <button className="auth-button animate-pulse">
+                            <button className="auth-button animate-pulse" disabled>
                                 <p>Signing you in...</p>
                             </button>
                         ) : (
                             <>
-                                {auth.isAuthenticated ? (
-                                    <button className="auth-button" onClick={auth.signOut}>
-                                        <p>Log Out</p>
-                                    </button>
+                                {isAuthenticated && user ? (
+                                    <div className="flex flex-col gap-4">
+                                        <div className="text-center">
+                                            <p className="text-gray-600">Signed in as</p>
+                                            <p className="font-semibold">{user.name}</p>
+                                        </div>
+                                        <button className="auth-button" onClick={signOut}>
+                                            <p>Log Out</p>
+                                        </button>
+                                    </div>
                                 ) : (
-                                    <button className="auth-button" onClick={auth.signIn}>
-                                        <p>Log In</p>
-                                    </button>
+                                    <GoogleAuthButton 
+                                        onSuccess={handleAuthSuccess}
+                                        onError={handleAuthError}
+                                    />
                                 )}
                             </>
                         )}

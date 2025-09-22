@@ -24,7 +24,7 @@ const Upload = () => {
 
     const handleAnalyze = async ({ companyName, jobTitle, jobDescription, file }: { companyName: string, jobTitle: string, jobDescription: string, file: File }) => {
         if (!isAuthenticated) {
-            navigate('/auth?next=/upload');
+            navigate('/auth');
             return;
         }
 

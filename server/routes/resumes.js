@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
         }
     },
     filename: (req, file, cb) => {
-        const uniqueName = `${uuidv4()}-${file.originalname}`;
+        const uniqueName = `${randomUUID()}-${file.originalname}`;
         cb(null, uniqueName);
     }
 });
@@ -44,18 +44,19 @@ router.post('/upload', authenticateToken, upload.single('resume'), async (req, r
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        const { companyName, jobTitle } = req.body;
+        const { companyName, jobTitle, jobDescription } = req.body;
         const resumeId = randomUUID();
 
         // Insert resume record
         await pool.execute(
-            `INSERT INTO resumes (id, user_id, company_name, job_title, file_name, file_path, file_size, mime_type) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO resumes (id, user_id, company_name, job_title, job_description, file_name, file_path, file_size, mime_type) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 resumeId,
                 req.user.id,
                 companyName || null,
                 jobTitle || null,
+                jobDescription || null,
                 req.file.originalname,
                 req.file.path,
                 req.file.size,

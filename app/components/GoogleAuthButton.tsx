@@ -46,6 +46,8 @@ const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
             window.google.accounts.id.initialize({
                 client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
                 callback: handleGoogleResponse,
+                use_fedcm_for_prompt: false,
+                cancel_on_tap_outside: false,
             });
 
             // Render the button
@@ -54,7 +56,7 @@ const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
                 window.google.accounts.id.renderButton(buttonElement, {
                     theme: 'outline',
                     size: 'large',
-                    width: '100%',
+                    width: 400,
                     text: 'signin_with',
                 });
             }

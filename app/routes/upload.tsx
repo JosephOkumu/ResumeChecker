@@ -31,20 +31,34 @@ const Upload = () => {
         setIsProcessing(true);
 
         try {
+            console.log('Starting analysis process...');
+            console.log('Company:', companyName, 'Job Title:', jobTitle);
+            console.log('Job Description:', jobDescription);
+            console.log('File:', file.name, file.type, file.size);
+
             setStatusText('Uploading the file...');
-            const uploadResult = await resumeService.uploadResume(file, companyName, jobTitle);
+            const uploadResult = await resumeService.uploadResume(file, companyName, jobTitle, jobDescription);
+            console.log('Upload result:', uploadResult);
             
             setStatusText('Analyzing with AI...');
+            console.log('Starting Puter AI analysis...');
+            
+            // Check if Puter is available
+            if (!window.puter) {
+                throw new Error('Puter.js is not loaded. Please refresh the page and try again.');
+            }
+            
             const feedback = await resumeService.analyzeWithPuterAI(
                 uploadResult.id, 
-                prepareInstructions({ jobTitle, jobDescription })
+                jobDescription
             );
+            console.log('Analysis feedback received:', feedback);
 
             setStatusText('Analysis complete, redirecting...');
             navigate(`/resume/${uploadResult.id}`);
         } catch (error) {
             console.error('Upload/Analysis error:', error);
-            setStatusText('Error: Failed to process resume');
+            setStatusText(`Error: ${(error as Error).message || 'Failed to process resume'}`);
             setIsProcessing(false);
         }
     };

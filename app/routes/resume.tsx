@@ -5,6 +5,7 @@ import { resumeService, type Resume, type Feedback } from "~/lib/resumes";
 import Summary from "~/components/Summary";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
+import Footer from "~/components/Footer";
 
 export const meta = () => ([
     { title: 'JobPass | Review ' },
@@ -85,6 +86,7 @@ const Resume = () => {
                     )}
                 </section>
             </div>
+        <Footer />
         </main>
     )
 }

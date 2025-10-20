@@ -1,9 +1,10 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useState, useEffect } from 'react';
 import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
+import Footer from "~/components/Footer";
 import { useAuthStore } from "~/lib/auth";
-import { resumeService } from "~/lib/resumes";
 import { useNavigate } from "react-router";
+import { resumeService } from "~/lib/resumes";
 import { convertPdfToImage } from "~/lib/pdf2img";
 import { prepareInstructions } from "../../constants";
 
@@ -115,6 +116,7 @@ const Upload = () => {
                     )}
                 </div>
             </section>
+            <Footer />
         </main>
     )
 }

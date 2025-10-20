@@ -1,5 +1,6 @@
 import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
+import Footer from "~/components/Footer";
 import { useAuthStore } from "~/lib/auth";
 import { resumeService, type Resume } from "~/lib/resumes";
 import { Link, useNavigate } from "react-router";
@@ -119,14 +120,14 @@ export default function Home() {
                   <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-blue-600 font-bold text-2xl">1</span>
                   </div>
-                  <h4 className="font-semibold mb-2 text-gray-800">Sign In & Upload</h4>
+                  <h4 className="font-semibold mb-2 text-gray-800">Sign In</h4>
                   <p className="text-gray-600 text-sm">Sign in with Google and upload your PDF resume along with job details for targeted analysis</p>
                 </div>
                 <div className="text-center">
                   <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-green-600 font-bold text-2xl">2</span>
                   </div>
-                  <h4 className="font-semibold mb-2 text-gray-800">Resume Analyzer</h4>
+                  <h4 className="font-semibold mb-2 text-gray-800">Analyze Resume</h4>
                   <p className="text-gray-600 text-sm">Our resume analyzer system reviews your resume against ATS requirements and job-specific criteria</p>
                 </div>
                 <div className="text-center">
@@ -142,9 +143,8 @@ export default function Home() {
             {/* CTA */}
             <div className="mt-12 text-center">
               <Link to="/auth" className="primary-button text-xl font-semibold px-8 py-4">
-                Get Started - Analyze Your Resume
+                Get Started
               </Link>
-              <p className="text-gray-600 mt-4">Free to use • No credit card required • Sign in with Google</p>
             </div>
           </>
         )}
@@ -176,5 +176,6 @@ export default function Home() {
         </>
       )}
     </section>
+    <Footer />
   </main>
 }

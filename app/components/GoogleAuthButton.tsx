@@ -155,13 +155,18 @@ const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
         );
     }
 
-    // Show loading state
-    if (!isGoogleLoaded || isLoading) {
+    // Show loading state only for auth loading, not Google script loading
+    if (isLoading) {
         return (
             <button className="auth-button animate-pulse" disabled>
-                <p>Loading Google Sign-In...</p>
+                <p>Signing you in...</p>
             </button>
         );
+    }
+
+    // Show nothing while Google is loading instead of loading button
+    if (!isGoogleLoaded) {
+        return null;
     }
 
     // Render the Google button container

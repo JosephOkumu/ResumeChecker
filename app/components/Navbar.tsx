@@ -17,9 +17,9 @@ const Navbar = () => {
                         </Link>
                         <button 
                             onClick={signOut}
-                            className="secondary-button w-fit"
+                            className="primary-button w-fit"
                         >
-                            Logout
+                            Sign Out
                         </button>
                     </>
                 ) : (

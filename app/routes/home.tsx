@@ -18,11 +18,7 @@ export default function Home() {
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/auth');
-    }
-  }, [isAuthenticated, navigate]);
+  // Removed automatic redirect - users must click "Get Started" to go to auth
 
   useEffect(() => {
     const loadResumes = async () => {
@@ -47,33 +43,137 @@ export default function Home() {
 
     <section className="main-section">
       <div className="page-heading py-16">
-        <h1>Track Your Applications & Resume Ratings</h1>
-        {!loadingResumes && resumes?.length === 0 ? (
-            <h2>No resumes found. Upload your first resume to get feedback.</h2>
-        ): (
-          <h2>Review your submissions and check AI-powered feedback.</h2>
+        {isAuthenticated ? (
+          <>
+            <h1>Track Your Applications & Resume Ratings</h1>
+            {!loadingResumes && resumes?.length === 0 ? (
+                <h2>No resumes found. Upload your first resume to get feedback.</h2>
+            ): (
+              <h2>Review your submissions and check AI-powered feedback.</h2>
+            )}
+          </>
+        ) : (
+          <>
+            <h1>Beat the ATS and Land Your Dream Job</h1>
+            <h2>Get AI-powered resume analysis with ATS scoring and personalized improvement tips</h2>
+            
+            {/* Features Section */}
+            <div className="mt-12 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="text-center mb-4">
+                  <img src="/icons/ats-good.svg" alt="ATS Score" className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800">ATS Compatibility Check</h3>
+                </div>
+                <p className="text-gray-600 text-center">
+                  Ensure your resume passes Applicant Tracking Systems used by 99% of Fortune 500 companies. Get detailed compatibility scores and fixes.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="text-center mb-4">
+                  <img src="/icons/ats-warning.svg" alt="AI Analysis" className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800">AI-Powered Analysis</h3>
+                </div>
+                <p className="text-gray-600 text-center">
+                  Advanced AI analyzes your resume content, structure, tone, and skills against job requirements for comprehensive feedback.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="text-center mb-4">
+                  <img src="/icons/ats-bad.svg" alt="Improvement Tips" className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800">Actionable Improvements</h3>
+                </div>
+                <p className="text-gray-600 text-center">
+                  Receive specific, actionable recommendations to optimize your resume and increase your chances of getting interviews.
+                </p>
+              </div>
+            </div>
+
+            {/* Benefits Section */}
+            <div className="mt-16 bg-white rounded-xl p-8 max-w-4xl mx-auto shadow-lg">
+              <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">Why Use Our ATS System?</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">📈 Increase Interview Chances</h4>
+                  <p className="text-gray-600 mb-4">75% of resumes never reach human recruiters due to ATS filtering. Our system ensures yours does.</p>
+                  
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">🎯 Job-Specific Optimization</h4>
+                  <p className="text-gray-600 mb-4">Tailor your resume for specific job descriptions and company requirements with AI-powered insights.</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">⚡ Instant Feedback</h4>
+                  <p className="text-gray-600 mb-4">Get comprehensive analysis in seconds, not days. Upload, analyze, and improve immediately.</p>
+                  
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">🔍 Detailed Scoring</h4>
+                  <p className="text-gray-600 mb-4">Receive scores for ATS compatibility, content quality, structure, tone, and skills alignment.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* How It Works */}
+            <div className="mt-16 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">How It Works</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-blue-600 font-bold text-2xl">1</span>
+                  </div>
+                  <h4 className="font-semibold mb-2 text-gray-800">Sign In & Upload</h4>
+                  <p className="text-gray-600 text-sm">Sign in with Google and upload your PDF resume along with job details for targeted analysis</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-green-600 font-bold text-2xl">2</span>
+                  </div>
+                  <h4 className="font-semibold mb-2 text-gray-800">AI Analysis</h4>
+                  <p className="text-gray-600 text-sm">Our advanced AI analyzes your resume against ATS requirements and job-specific criteria</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-purple-600 font-bold text-2xl">3</span>
+                  </div>
+                  <h4 className="font-semibold mb-2 text-gray-800">Get Results</h4>
+                  <p className="text-gray-600 text-sm">Receive detailed scores, feedback, and specific recommendations to improve your resume</p>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="mt-12 text-center">
+              <Link to="/auth" className="primary-button text-xl font-semibold px-8 py-4">
+                Get Started - Analyze Your Resume
+              </Link>
+              <p className="text-gray-600 mt-4">Free to use • No credit card required • Sign in with Google</p>
+            </div>
+          </>
         )}
       </div>
-      {loadingResumes && (
-          <div className="flex flex-col items-center justify-center">
-            <img src="/images/resume-scan-2.gif" className="w-[200px]" />
-          </div>
-      )}
+      
+      {isAuthenticated && (
+        <>
+          {loadingResumes && (
+              <div className="flex flex-col items-center justify-center">
+                <img src="/images/resume-scan-2.gif" className="w-[200px]" />
+              </div>
+          )}
 
-      {!loadingResumes && resumes.length > 0 && (
-        <div className="resumes-section">
-          {resumes.map((resume) => (
-              <ResumeCard key={resume.id} resume={resume} />
-          ))}
-        </div>
-      )}
+          {!loadingResumes && resumes.length > 0 && (
+            <div className="resumes-section">
+              {resumes.map((resume) => (
+                  <ResumeCard key={resume.id} resume={resume} />
+              ))}
+            </div>
+          )}
 
-      {!loadingResumes && resumes?.length === 0 && (
-          <div className="flex flex-col items-center justify-center mt-10 gap-4">
-            <Link to="/upload" className="primary-button w-fit text-xl font-semibold">
-              Upload Resume
-            </Link>
-          </div>
+          {!loadingResumes && resumes?.length === 0 && (
+              <div className="flex flex-col items-center justify-center mt-10 gap-4">
+                <Link to="/upload" className="primary-button w-fit text-xl font-semibold">
+                  Upload Resume
+                </Link>
+              </div>
+          )}
+        </>
       )}
     </section>
   </main>

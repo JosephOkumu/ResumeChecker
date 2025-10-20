@@ -43,11 +43,6 @@ const Upload = () => {
             setStatusText('Analyzing with AI...');
             console.log('Starting Puter AI analysis...');
             
-            // Check if Puter is available
-            if (!window.puter) {
-                throw new Error('Puter.js is not loaded. Please refresh the page and try again.');
-            }
-            
             const feedback = await resumeService.analyzeWithPuterAI(
                 uploadResult.id, 
                 jobDescription

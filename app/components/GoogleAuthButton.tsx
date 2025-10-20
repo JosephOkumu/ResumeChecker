@@ -165,7 +165,11 @@ const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
     }
 
     // Render the Google button container
-    return <div id="google-signin-button" className="w-full" />;
+    return (
+        <div className="w-full flex justify-center">
+            <div id="google-signin-button" className="flex justify-center" />
+        </div>
+    );
 };
 
 export default GoogleAuthButton;

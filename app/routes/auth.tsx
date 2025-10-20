@@ -11,7 +11,7 @@ export const meta = () => ([
 const Auth = () => {
     const { isAuthenticated, isLoading, user, signOut, error, clearError } = useAuthStore();
     const location = useLocation();
-    const next = new URLSearchParams(location.search).get('next') || '/';
+    const next = new URLSearchParams(location.search).get('next') || '/upload';
     const navigate = useNavigate();
     const [authError, setAuthError] = useState<string | null>(null);
 

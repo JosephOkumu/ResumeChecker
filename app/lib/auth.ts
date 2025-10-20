@@ -101,6 +101,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
             isLoading: false,
             error: null
         });
+        
+        // Redirect to home page after logout
+        if (typeof window !== 'undefined') {
+            window.location.href = '/';
+        }
     },
 
     checkAuthStatus: async () => {

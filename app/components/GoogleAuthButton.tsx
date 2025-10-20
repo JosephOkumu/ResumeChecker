@@ -23,43 +23,88 @@ interface GoogleAuthButtonProps {
 const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
     const { signInWithGoogle, isLoading } = useAuthStore();
     const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
+    const [initError, setInitError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Load Google Identity Services script
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.defer = true;
-        script.onload = () => {
-            setIsGoogleLoaded(true);
-            initializeGoogleAuth();
+        let script: HTMLScriptElement | null = null;
+        
+        const loadGoogleScript = () => {
+            // Check if Google script is already loaded
+            if (window.google?.accounts?.id) {
+                setIsGoogleLoaded(true);
+                initializeGoogleAuth();
+                return;
+            }
+
+            // Load Google Identity Services script
+            script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            script.defer = true;
+            
+            script.onload = () => {
+                // Wait a bit for Google to be fully available
+                setTimeout(() => {
+                    if (window.google?.accounts?.id) {
+                        setIsGoogleLoaded(true);
+                        initializeGoogleAuth();
+                    } else {
+                        setInitError('Google Sign-In failed to initialize');
+                    }
+                }, 100);
+            };
+            
+            script.onerror = () => {
+                setInitError('Failed to load Google Sign-In script');
+            };
+            
+            document.head.appendChild(script);
         };
-        document.head.appendChild(script);
+
+        loadGoogleScript();
 
         return () => {
-            document.head.removeChild(script);
+            if (script && document.head.contains(script)) {
+                document.head.removeChild(script);
+            }
         };
     }, []);
 
     const initializeGoogleAuth = () => {
-        if (window.google) {
-            window.google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-                callback: handleGoogleResponse,
-                use_fedcm_for_prompt: false,
-                cancel_on_tap_outside: false,
-            });
-
-            // Render the button
-            const buttonElement = document.getElementById('google-signin-button');
-            if (buttonElement) {
-                window.google.accounts.id.renderButton(buttonElement, {
-                    theme: 'outline',
-                    size: 'large',
-                    width: 400,
-                    text: 'signin_with',
-                });
+        try {
+            const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+            
+            if (!clientId) {
+                setInitError('Google Client ID not configured');
+                return;
             }
+
+            if (window.google?.accounts?.id) {
+                window.google.accounts.id.initialize({
+                    client_id: clientId,
+                    callback: handleGoogleResponse,
+                    use_fedcm_for_prompt: false,
+                    cancel_on_tap_outside: false,
+                });
+
+                // Wait for the DOM element to be available
+                setTimeout(() => {
+                    const buttonElement = document.getElementById('google-signin-button');
+                    if (buttonElement) {
+                        window.google.accounts.id.renderButton(buttonElement, {
+                            theme: 'outline',
+                            size: 'large',
+                            width: 400,
+                            text: 'signin_with',
+                        });
+                    } else {
+                        setInitError('Button element not found');
+                    }
+                }, 50);
+            }
+        } catch (error) {
+            console.error('Google Auth initialization error:', error);
+            setInitError('Failed to initialize Google Sign-In');
         }
     };
 
@@ -72,14 +117,54 @@ const GoogleAuthButton = ({ onSuccess, onError }: GoogleAuthButtonProps) => {
         }
     };
 
+    // Show error state
+    if (initError) {
+        return (
+            <div className="w-full">
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+                    {initError}
+                </div>
+                <button 
+                    className="auth-button" 
+                    onClick={() => {
+                        setInitError(null);
+                        setIsGoogleLoaded(false);
+                        // Retry initialization
+                        setTimeout(() => {
+                            const script = document.createElement('script');
+                            script.src = 'https://accounts.google.com/gsi/client';
+                            script.async = true;
+                            script.defer = true;
+                            script.onload = () => {
+                                setTimeout(() => {
+                                    if (window.google?.accounts?.id) {
+                                        setIsGoogleLoaded(true);
+                                        initializeGoogleAuth();
+                                    } else {
+                                        setInitError('Google Sign-In failed to initialize');
+                                    }
+                                }, 100);
+                            };
+                            document.head.appendChild(script);
+                        }, 100);
+                    }}
+                >
+                    <p>Retry Google Sign-In</p>
+                </button>
+            </div>
+        );
+    }
+
+    // Show loading state
     if (!isGoogleLoaded || isLoading) {
         return (
             <button className="auth-button animate-pulse" disabled>
-                <p>Loading...</p>
+                <p>Loading Google Sign-In...</p>
             </button>
         );
     }
 
+    // Render the Google button container
     return <div id="google-signin-button" className="w-full" />;
 };
 

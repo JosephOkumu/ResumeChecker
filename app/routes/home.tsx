@@ -49,16 +49,26 @@ export default function Home() {
             {!loadingResumes && resumes?.length === 0 ? (
                 <h2>No resumes found. Upload your first resume to get feedback.</h2>
             ): (
-              <h2>Review your submissions and check AI-powered feedback.</h2>
+              <h2>Review your submissions and check resume analyzer feedback.</h2>
             )}
           </>
         ) : (
           <>
             <h1>Beat the ATS and Land Your Dream Job</h1>
-            <h2>Get AI-powered resume analysis with ATS scoring and personalized improvement tips</h2>
+            <h2>Get resume analyzer feedback with ATS scoring and personalized improvement tips</h2>
             
             {/* Features Section */}
             <div className="mt-12 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="text-center mb-4">
+                  <img src="/icons/ats-warning.svg" alt="AI Analysis" className="w-16 h-16 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-800">Resume Analyzer Technology</h3>
+                </div>
+                <p className="text-gray-600 text-center">
+                  Advanced resume analyzer reviews your resume content, structure, tone, and skills against job requirements for comprehensive feedback.
+                </p>
+              </div>
+
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="text-center mb-4">
                   <img src="/icons/ats-good.svg" alt="ATS Score" className="w-16 h-16 mx-auto mb-4" />
@@ -71,18 +81,8 @@ export default function Home() {
 
               <div className="bg-white rounded-xl p-6 shadow-lg">
                 <div className="text-center mb-4">
-                  <img src="/icons/ats-warning.svg" alt="AI Analysis" className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-800">AI-Powered Analysis</h3>
-                </div>
-                <p className="text-gray-600 text-center">
-                  Advanced AI analyzes your resume content, structure, tone, and skills against job requirements for comprehensive feedback.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <div className="text-center mb-4">
                   <img src="/icons/ats-bad.svg" alt="Improvement Tips" className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-800">Actionable Improvements</h3>
+                  <h3 className="text-xl font-semibold text-gray-800">Detailed Recommendations</h3>
                 </div>
                 <p className="text-gray-600 text-center">
                   Receive specific, actionable recommendations to optimize your resume and increase your chances of getting interviews.
@@ -93,20 +93,20 @@ export default function Home() {
             {/* Benefits Section */}
             <div className="mt-16 bg-white rounded-xl p-8 max-w-4xl mx-auto shadow-lg">
               <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">Why Use Our ATS System?</h3>
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="text-center space-y-6">
                 <div>
-                  <h4 className="font-semibold mb-3 text-lg text-gray-800">📈 Increase Interview Chances</h4>
-                  <p className="text-gray-600 mb-4">75% of resumes never reach human recruiters due to ATS filtering. Our system ensures yours does.</p>
-                  
-                  <h4 className="font-semibold mb-3 text-lg text-gray-800">🎯 Job-Specific Optimization</h4>
-                  <p className="text-gray-600 mb-4">Tailor your resume for specific job descriptions and company requirements with AI-powered insights.</p>
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">🎯 Used by top companies Globally</h4>
+                  <p className="text-gray-600">Trusted by Fortune 500 companies and leading organizations worldwide to streamline their recruitment process.</p>
                 </div>
+                
                 <div>
-                  <h4 className="font-semibold mb-3 text-lg text-gray-800">⚡ Instant Feedback</h4>
-                  <p className="text-gray-600 mb-4">Get comprehensive analysis in seconds, not days. Upload, analyze, and improve immediately.</p>
-                  
+                  <h4 className="font-semibold mb-3 text-lg text-gray-800">📈 Get Selected for Interviews</h4>
+                  <p className="text-gray-600">Our system ensures you get a chance to be shortlisted for an interview.</p>
+                </div>
+                
+                <div>
                   <h4 className="font-semibold mb-3 text-lg text-gray-800">🔍 Detailed Scoring</h4>
-                  <p className="text-gray-600 mb-4">Receive scores for ATS compatibility, content quality, structure, tone, and skills alignment.</p>
+                  <p className="text-gray-600">Receive scores for ATS compatibility, content quality, structure, tone, and skills alignment.</p>
                 </div>
               </div>
             </div>
@@ -126,8 +126,8 @@ export default function Home() {
                   <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-green-600 font-bold text-2xl">2</span>
                   </div>
-                  <h4 className="font-semibold mb-2 text-gray-800">AI Analysis</h4>
-                  <p className="text-gray-600 text-sm">Our advanced AI analyzes your resume against ATS requirements and job-specific criteria</p>
+                  <h4 className="font-semibold mb-2 text-gray-800">Resume Analyzer</h4>
+                  <p className="text-gray-600 text-sm">Our resume analyzer system reviews your resume against ATS requirements and job-specific criteria</p>
                 </div>
                 <div className="text-center">
                   <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">

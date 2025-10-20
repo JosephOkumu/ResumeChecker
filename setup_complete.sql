@@ -1,4 +1,4 @@
--- Complete database setup for Job Pass
+-- Complete database setup for JobPass
 -- Run this with: mysql -u root -p < setup_complete.sql
 
 -- Use the job_pass database

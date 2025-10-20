@@ -1,4 +1,4 @@
--- Job Pass Database Schema
+-- JobPass Database Schema
 
 CREATE DATABASE IF NOT EXISTS job_pass;
 USE job_pass;

@@ -33,7 +33,7 @@ app.use('/api/ai', aiRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', message: 'Job Pass API is running' });
+    res.json({ status: 'OK', message: 'JobPass API is running' });
 });
 
 // Error handling middleware

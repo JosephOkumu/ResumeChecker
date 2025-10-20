@@ -3,7 +3,7 @@
 
 DROP USER IF EXISTS 'job_pass_user'@'localhost';
 
-CREATE USER 'job_pass_user'@'localhost' IDENTIFIED BY 'jobpass2024';
+CREATE USER 'job_pass_user'@'localhost' IDENTIFIED BY 'JobPass2024';
 
 GRANT ALL PRIVILEGES ON job_pass.* TO 'job_pass_user'@'localhost';
 

@@ -1,9 +1,9 @@
--- Job Pass Database Setup
+-- JobPass Database Setup
 -- Run this with: mysql -u root -p < create_database.sql
 
 CREATE DATABASE IF NOT EXISTS job_pass;
 
-CREATE USER IF NOT EXISTS 'job_pass_user'@'localhost' IDENTIFIED BY 'jobpass2024';
+CREATE USER IF NOT EXISTS 'job_pass_user'@'localhost' IDENTIFIED BY 'JobPass2024';
 
 GRANT ALL PRIVILEGES ON job_pass.* TO 'job_pass_user'@'localhost';
 

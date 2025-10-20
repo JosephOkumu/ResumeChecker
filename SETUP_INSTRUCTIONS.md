@@ -1,7 +1,7 @@
-# Job Pass Migration Setup Instructions
+# JobPass Migration Setup Instructions
 
 ## Overview
-This guide will help you set up the migrated Job Pass application with Google OAuth, MySQL database, and Puter.js AI.
+This guide will help you set up the migrated JobPass application with Google OAuth, MySQL database, and Puter.js AI.
 
 ## Prerequisites
 - Node.js (v18 or higher)

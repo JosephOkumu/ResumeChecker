@@ -1,7 +1,7 @@
 {
   "name": "job-pass-server",
   "version": "1.0.0",
-  "description": "Backend server for Job Pass resume analyzer",
+  "description": "Backend server for JobPass resume analyzer",
   "main": "index.js",
   "type": "module",
   "scripts": {

@@ -7,7 +7,7 @@ async function testConnection() {
         const connection = await mysql.createConnection({
             host: 'localhost',
             user: 'job_pass_user',
-            password: 'jobpass2024',
+            password: 'JobPass2024',
             database: 'job_pass'
         });
 

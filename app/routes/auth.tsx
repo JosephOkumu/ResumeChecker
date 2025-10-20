@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 import GoogleAuthButton from "~/components/GoogleAuthButton";
 
 export const meta = () => ([
-    { title: 'Resumind | Auth' },
+    { title: 'JobPass | Auth' },
     { name: 'description', content: 'Log into your account' },
 ])
 

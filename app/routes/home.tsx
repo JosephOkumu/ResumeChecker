@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export function meta() {
   return [
-    { title: "Resumind" },
+    { title: "JobPass" },
     { name: "description", content: "Smart feedback for your dream job!" },
   ];
 }

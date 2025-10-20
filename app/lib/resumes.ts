@@ -105,6 +105,15 @@ export const resumeService = {
 
     // Analyze resume with Puter.js AI (client-side)
     analyzeWithPuterAI: async (resumeId: string, jobDescription?: string): Promise<Feedback> => {
+        // Dynamically load Puter.js only when needed for AI analysis
+        const { loadPuterJS } = await import('~/lib/puterLoader');
+        
+        try {
+            await loadPuterJS();
+        } catch (error) {
+            throw new Error('Failed to load Puter.js for AI analysis. Please refresh and try again.');
+        }
+
         if (typeof window === 'undefined' || !window.puter) {
             throw new Error('Puter.js not available');
         }

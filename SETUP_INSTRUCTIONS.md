@@ -1,7 +1,7 @@
 # JobPass Migration Setup Instructions
 
 ## Overview
-This guide will help you set up the migrated JobPass application with Google OAuth, MySQL database, and Puter.js AI.
+This guide will help you set up the migrated JobPass application with Google OAuth, MySQL database, and Gemini AI.
 
 ## Prerequisites
 - Node.js (v18 or higher)
@@ -74,6 +74,9 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 JWT_SECRET=your_jwt_secret_key_here
 
+# Gemini AI Configuration
+GEMINI_API_KEY=your_gemini_api_key_here
+
 PORT=3001
 FRONTEND_URL=http://localhost:5173
 ```
@@ -102,7 +105,32 @@ npm install
 npm install
 ```
 
-## 5. Start the Application
+## 5. Gemini AI Setup
+
+### Get Gemini API Key
+1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Click "Create API Key"
+3. Select or create a Google Cloud project
+4. Copy the generated API key
+5. Add it to your `server/.env` file as `GEMINI_API_KEY=your_key_here`
+
+### Test Configuration
+```bash
+cd server
+npm run check-env
+```
+
+This will verify all environment variables are properly configured.
+
+### Test AI Endpoint
+After starting the server, you can test the AI endpoint:
+```bash
+# Test Gemini AI status (requires authentication)
+curl -X GET http://localhost:3001/api/ai/test \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 6. Start the Application
 
 ### Start Backend Server
 ```bash
@@ -115,60 +143,12 @@ npm run dev
 npm run dev
 ```
 
-## 6. Test the Migration
+## 7. Test the Migration
 
 1. Open http://localhost:5173
 2. Click "Log In" - should show Google OAuth
 3. Sign in with Google account
 4. Upload a resume (PDF)
-5. Test AI analysis with Puter.js
+5. Test AI analysis with Gemini AI
 
 ## Key Changes Made
-
-### Authentication
-- ✅ Replaced Puter.js auth with Google OAuth
-- ✅ JWT tokens for session management
-- ✅ User data stored in MySQL
-
-### Storage
-- ✅ Replaced Puter.js KV store with MySQL database
-- ✅ File uploads stored locally in `server/uploads/`
-- ✅ Resume metadata in database
-
-### AI Analysis
-- ✅ Kept Puter.js AI for resume analysis
-- ✅ Analysis results saved to MySQL
-- ✅ Frontend calls Puter.js directly for AI
-
-### Data Flow
-```
-User → Google OAuth → JWT Token → MySQL Database
-                                ↓
-                            Puter.js AI (analysis only)
-```
-
-## Troubleshooting
-
-### Database Connection Issues
-- Check MySQL service is running
-- Verify credentials in `.env`
-- Check firewall settings
-
-### Google OAuth Issues
-- Verify Client ID in both frontend and backend
-- Check authorized origins in Google Console
-- Ensure HTTPS in production
-
-### File Upload Issues
-- Check `server/uploads/` directory permissions
-- Verify file size limits in backend
-
-## Production Deployment
-
-1. Set up MySQL on production server
-2. Update environment variables
-3. Build frontend: `npm run build`
-4. Deploy backend with PM2 or similar
-5. Set up reverse proxy (nginx)
-6. Configure HTTPS
-7. Update Google OAuth origins

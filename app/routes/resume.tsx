@@ -40,8 +40,31 @@ const Resume = () => {
                 const fileUrl = resumeService.getResumeFileUrl(id);
                 setResumeUrl(fileUrl);
 
-                // For now, use placeholder for image until we implement PDF to image conversion
-                setImageUrl('/images/resume-placeholder.png');
+                // Convert PDF to image for display
+                const { convertPdfToImage } = await import('~/lib/pdf2img');
+                
+                // Fetch the PDF file
+                const pdfResponse = await fetch(fileUrl, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                    }
+                });
+                
+                if (pdfResponse.ok) {
+                    const pdfBlob = await pdfResponse.blob();
+                    const pdfFile = new File([pdfBlob], `resume_${id}.pdf`, { type: 'application/pdf' });
+                    
+                    // Convert to image
+                    const conversionResult = await convertPdfToImage(pdfFile);
+                    if (conversionResult.imageUrl && !conversionResult.error) {
+                        setImageUrl(conversionResult.imageUrl);
+                    } else {
+                        console.warn('PDF to image conversion failed:', conversionResult.error);
+                        setImageUrl('/images/resume-placeholder.png');
+                    }
+                } else {
+                    setImageUrl('/images/resume-placeholder.png');
+                }
             } catch (error) {
                 console.error('Failed to load resume:', error);
                 navigate('/');

@@ -83,11 +83,11 @@ const Resume = () => {
     <main className="!pt-0">
       <nav className="resume-nav">
         <Link
-          to="/"
+          to="/upload"
           className="primary-button inline-flex items-center justify-center gap-2 w-auto"
         >
           <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5" />
-          <span>Back to Home</span>
+          <span>Back</span>
         </Link>
       </nav>
       <div className="flex flex-row w-full max-lg:flex-col-reverse">

@@ -96,13 +96,13 @@ const Upload = () => {
       <Navbar />
 
       <section className="main-section">
-        <div className="page-heading py-16">
+        <div className="page-heading py-8">
           <h1>Smart feedback for your dream job</h1>
           {isProcessing ? (
-            <>
+            <div className="flex flex-col items-center gap-2 mt-4">
               <h2>{statusText}</h2>
-              <img src="/images/resume-scan.gif" className="w-full" />
-            </>
+              <img src="/images/resume-scan-2.gif" className="w-[200px]" />
+            </div>
           ) : (
             <h2>Drop your resume for an ATS score and improvement tips</h2>
           )}

@@ -5,6 +5,7 @@ import { testConnection } from './config/database.js';
 import authRoutes from './routes/auth.js';
 import resumeRoutes from './routes/resumes.js';
 import aiRoutes from './routes/ai.js';
+import geminiRoutes from './routes/gemini.js';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/resumes', resumeRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/ai', geminiRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

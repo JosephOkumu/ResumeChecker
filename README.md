@@ -1,16 +1,4 @@
 <div align="center">
-  <br />
-    <a href="https://www.youtube.com/watch?v=iYOz165wGkQ" target="_blank">
-      <img src="public/readme/hero.webp" alt="Project Banner">
-    </a>
-  <br />
-
-  <div>
-    <img alt="Static Badge" src="https://img.shields.io/badge/React-4c84f3?style=for-the-badge&logo=react&logoColor=white">
-        <img src="https://img.shields.io/badge/-Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-        <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="TypeScript" />
-    <img alt="Static Badge" src="https://img.shields.io/badge/Puter.js-181758?style=for-the-badge&logoColor=white">
-  </div>
 
   <h3 align="center"> JobPass</h3>
 
@@ -28,7 +16,7 @@
 
 ## <a name="introduction">✨ Introduction</a>
 
-Build an AI-powered Resume Analyzer with React, React Router, and Puter.js! Implement seamless auth, upload and store resumes, and match candidates to jobs using smart AI evaluations. Get custom feedback and ATS scores tailored to each listing—all wrapped in a clean, reusable UI.
+AI-powered Resume Analyzer with React, React Router, and Gemini! Implement seamless auth, upload and store resumes, and match candidates to jobs using smart AI evaluations. Get custom feedback and ATS scores tailored to each listing—all wrapped in a clean, reusable UI.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -38,9 +26,7 @@ Build an AI-powered Resume Analyzer with React, React Router, and Puter.js! Impl
 
 - **[Puter.com](https://jsm.dev/JobPass-puter)** is an advanced, open-source internet operating system designed to be feature-rich, exceptionally fast, and highly extensible. Puter can be used as: A privacy-first personal cloud to keep all your files, apps, and games in one secure place, accessible from anywhere at any time.
 
-- **[Puter.js](https://jsm.dev/JobPass-puterjs)** is a tiny client‑side SDK that adds serverless auth, storage, database, and AI (GPT, Claude, DALL·E, OCR…) straight into your browser app—no backend needed and costs borne by users.
-
-- **[Tailwind CSS](https://tailwindcss.com/)** is a utility-first CSS framework that allows developers to design custom user interfaces by applying low-level utility classes directly in HTML, streamlining the design process.
+- **Gemini AI.
 
 - **[TypeScript](https://www.typescriptlang.org/)** is a superset of JavaScript that adds static typing, providing better tooling, code quality, and error detection for developers, making it ideal for building large-scale applications.
 
@@ -50,9 +36,9 @@ Build an AI-powered Resume Analyzer with React, React Router, and Puter.js! Impl
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Easy & convenient auth**: Handle authentication entirely in the browser using Puter.js—no backend or setup required.
+👉 **Easy & convenient auth**: Handle authentication entirely using Google Oauth.
 
-👉 **Resume upload & storage**: Let users upload and store all their resumes in one place, safely and reliably.
+👉 **Resume upload**: Let users upload their resumes in one place, safely and reliably.
 
 👉 **AI resume matching**: Provide a job listing and get an ATS score with custom feedback tailored to each resume.
 

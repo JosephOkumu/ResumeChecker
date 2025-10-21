@@ -44,7 +44,7 @@ const Upload = () => {
             setStatusText('Analyzing with AI...');
             console.log('Starting Puter AI analysis...');
             
-            const feedback = await resumeService.analyzeWithPuterAI(
+            const feedback = await resumeService.analyzeWithGeminiAI(
                 uploadResult.id, 
                 jobDescription
             );

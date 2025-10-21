@@ -103,8 +103,15 @@ export const resumeService = {
         await api.post(`/ai/feedback/${resumeId}`, { feedback });
     },
 
-    // Analyze resume with Puter.js AI (client-side)
+    // Analyze resume with Gemini AI (backend)
+    analyzeWithGeminiAI: async (resumeId: string, jobDescription?: string): Promise<Feedback> => {
+        const response = await api.post(`/ai/analyze/${resumeId}`, { jobDescription });
+        return response.data;
+    },
+
+    // Analyze resume with Puter.js AI (client-side) - DISABLED
     analyzeWithPuterAI: async (resumeId: string, jobDescription?: string): Promise<Feedback> => {
+        throw new Error('Puter AI is temporarily disabled. Using Gemini AI instead.');
         // Dynamically load Puter.js only when needed for AI analysis
         const { loadPuterJS } = await import('~/lib/puterLoader');
         

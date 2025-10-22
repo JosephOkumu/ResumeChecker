@@ -26,7 +26,7 @@ AI-powered Resume Analyzer with React, React Router, and Gemini! Implement seaml
 
 - **[Puter.com](https://jsm.dev/JobPass-puter)** is an advanced, open-source internet operating system designed to be feature-rich, exceptionally fast, and highly extensible. Puter can be used as: A privacy-first personal cloud to keep all your files, apps, and games in one secure place, accessible from anywhere at any time.
 
-- **Gemini AI.
+- **Gemini AI.**
 
 - **[TypeScript](https://www.typescriptlang.org/)** is a superset of JavaScript that adds static typing, providing better tooling, code quality, and error detection for developers, making it ideal for building large-scale applications.
 
